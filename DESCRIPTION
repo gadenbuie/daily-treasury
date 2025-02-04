@@ -17,6 +17,7 @@ Imports:
     dplyr,
     here,
     httr2,
+    jsonlite,
     pkgload,
     purrr,
     readr,
