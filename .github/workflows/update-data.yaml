@@ -1,7 +1,7 @@
 on:
   schedule:
-    cron: "5 6 * * 1-5"
-  workflow_dispatch: 
+    - cron: "5 6 * * 1-5"
+  workflow_dispatch:
 
 name: update-data.yaml
 
