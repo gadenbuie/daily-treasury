@@ -1,0 +1,28 @@
+Package: federal-expenditures
+Title: Dashboard to Track Federal Expenditures
+Version: 0.0.0.9000
+Authors@R: 
+    person("Garrick", "Aden-Buie", , "garrick@adenbuie.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7111-0077"))
+Description: The Daily Treasury Statement (DTS) dataset provides detailed
+    insights into the U.S. Treasury's daily cash and debt operations,
+    including operating cash balances, deposits, withdrawals, and public
+    debt transactions. It also covers federal tax deposits, income tax
+    refunds, and securities transactions, with all figures rounded to the
+    nearest million.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 4.1)
+Imports: 
+    dplyr,
+    here,
+    httr2,
+    pkgload,
+    purrr,
+    readr,
+    rlang,
+    utils
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

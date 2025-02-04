@@ -1,0 +1,41 @@
+on:
+  schedule:
+    cron: "5 6 * * 1-5"
+  workflow_dispatch: 
+
+name: update-data.yaml
+
+permissions: read-all
+
+jobs:
+  shiny-deploy:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🆙 Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: 📦 Install R Dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+
+      - name: 💾 Download data
+        run: Rscript data-raw/fd_dts_deposits_withdrawals.R
+
+      - name: 📤 Upload changes
+        run: |
+          if FILES_TO_COMMIT=($(git diff-index --name-only ${{ github.sha }} \
+              | egrep --ignore-case 'fd_dts_deposits_withdrawals'))
+          then
+            git config --local user.name "$GITHUB_ACTOR"
+            git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+            git commit ${FILES_TO_COMMIT[*]} -m "Style code (GHA)"
+            git pull --ff-only
+            git push origin
+          else
+            echo "No changes to commit."
+          fi
